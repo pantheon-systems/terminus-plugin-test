@@ -1,5 +1,5 @@
 # Use an official Drupal PHP runtime image as a parent image
-FROM pantheon-public/php-ci
+FROM quay.io/pantheon-public/php-ci
 
 # Set the working directory to /php-ci
 WORKDIR /php-ci
