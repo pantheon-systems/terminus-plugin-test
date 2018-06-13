@@ -7,13 +7,18 @@ WORKDIR /terminus-plugin-test
 # Copy the current directory contents into the container at /php-ci
 ADD . /terminus-plugin-test
 
+# Create an unpriviliged testuser
+RUN groupadd -g 999 tester && \
+    useradd -r -u 999 -g tester tester && \
+    chown -R tester /usr/local
+USER tester
+
 # Add phpcs for use in checking code style
 RUN mkdir ~/phpcs && cd ~/phpcs && COMPOSER_BIN_DIR=/usr/local/bin composer require squizlabs/php_codesniffer:^2.7
 
-# Add in a global phpunit for unit testing
+# Add phpunit for unit testing
 RUN mkdir ~/phpunit && cd ~/phpunit && COMPOSER_BIN_DIR=/usr/local/bin composer require phpunit/phpunit:^6
 
-# Add bats for use in testing
+# Add bats for functional testing
 RUN git clone https://github.com/sstephenson/bats.git; bats/install.sh /usr/local
 
-USER nobody
