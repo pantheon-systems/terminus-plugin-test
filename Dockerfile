@@ -9,7 +9,7 @@ ADD . /terminus-plugin-test
 
 # Create an unpriviliged testuser
 RUN groupadd -g 999 tester && \
-    useradd -r -u 999 -g tester tester && \
+    useradd -r -m -u 999 -g tester tester && \
     chown -R tester /usr/local
 USER tester
 
