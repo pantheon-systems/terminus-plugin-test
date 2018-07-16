@@ -34,3 +34,5 @@ RUN mkdir ~/phpunit && cd ~/phpunit && COMPOSER_BIN_DIR=/usr/local/bin composer 
 # Add bats for functional testing
 RUN git clone https://github.com/sstephenson/bats.git; bats/install.sh /usr/local
 
+# Add behat for more functional testing
+RUN mkdir ~/behat && cd ~/behat && COMPOSER_BIN_DIR=/usr/local/bin composer require "behat/behat": "^3.1" "behat/mink-extension": "^2.2" "behat/mink-goutte-driver": "^1.2"
