@@ -9,7 +9,7 @@ ADD . /terminus-plugin-test
 
 # Collect the components we need for this image
 RUN apt-get update
-RUN apt-get install -y ruby
+RUN apt-get install -y ruby jq
 RUN gem install circle-cli
 RUN composer global require -n "hirak/prestissimo:^0.3"
 
@@ -36,6 +36,3 @@ RUN git clone https://github.com/sstephenson/bats.git; bats/install.sh /usr/loca
 
 # Add behat for more functional testing
 RUN mkdir ~/behat && cd ~/behat && COMPOSER_BIN_DIR=/usr/local/bin composer require "behat/behat:^3.1" "behat/mink-extension:^2.2" "behat/mink-goutte-driver:^1.2"
-
-# Install jq, because who doesn't need jq?
-RUN apt-get install jq
