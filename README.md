@@ -10,7 +10,7 @@ For an example of how to use this image to test Terminus plugins, see the [Termi
 In CircleCI 2.0:
 ```
   docker:
-    - image: quay.io/pantheon-public/terminus-plugin-test:1.x
+    - image: quay.io/pantheon-public/terminus-plugin-test:2.x
 ```
 ## Image Contents
 
