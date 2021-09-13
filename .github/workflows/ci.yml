@@ -3,7 +3,6 @@ name: ci
 on:
   push:
     branches:
-      - '3.x'
 
 jobs:
   docker:
