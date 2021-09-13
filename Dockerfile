@@ -34,7 +34,7 @@ RUN ln -s ~/terminus/bin/t3 /usr/local/bin/terminus
 RUN mkdir ~/phpcs && cd ~/phpcs && COMPOSER_BIN_DIR=/usr/local/bin composer require squizlabs/php_codesniffer:^2.7
 
 # Add phpunit for unit testing
-RUN mkdir ~/phpunit && cd ~/phpunit && COMPOSER_BIN_DIR=/usr/local/bin composer global require phpunit/phpunit:^9
+RUN mkdir ~/phpunit && cd ~/phpunit && COMPOSER_BIN_DIR=/usr/local/bin composer require phpunit/phpunit:^9
 
 # Add bats for functional testing
 RUN git clone https://github.com/sstephenson/bats.git; bats/install.sh /usr/local
@@ -43,7 +43,7 @@ RUN git clone https://github.com/sstephenson/bats.git; bats/install.sh /usr/loca
 RUN mkdir ~/behat && \
     cd ~/behat && \
     COMPOSER_BIN_DIR=/usr/local/bin \
-    composer global require \
+    composer require \
         "behat/behat:^3.1" \
         "behat/mink:*" \
         "behat/mink-extension:^2.2" \
