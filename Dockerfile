@@ -1,5 +1,7 @@
 # Use an official Drupal PHP runtime image as a parent image
-FROM drupaldocker/php:7.1-cli
+FROM php:8.0-cli
+
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 # Set the working directory
 WORKDIR /terminus-plugin-test
@@ -9,9 +11,11 @@ ADD . /terminus-plugin-test
 
 # Collect the components we need for this image
 RUN apt-get update
-RUN apt-get install -y ruby jq
+RUN apt-get install -y ruby jq git
 RUN gem install circle-cli
-RUN composer global require -n "hirak/prestissimo:^0.3"
+
+# Pcov extension
+RUN pecl install pcov && docker-php-ext-enable pcov
 
 # Create an unpriviliged testuser
 RUN groupadd -g 999 tester && \
@@ -22,14 +26,15 @@ USER tester
 
 # Install terminus
 RUN git clone https://github.com/pantheon-systems/terminus.git ~/terminus
-RUN cd ~/terminus && git checkout 2.0.0 && composer install
-RUN ln -s ~/terminus/bin/terminus /usr/local/bin/terminus
+RUN cd ~/terminus && git checkout 3.x && composer install
+# Terminus 3 binary current is named t3.
+RUN ln -s ~/terminus/bin/t3 /usr/local/bin/terminus
 
 # Add phpcs for use in checking code style
 RUN mkdir ~/phpcs && cd ~/phpcs && COMPOSER_BIN_DIR=/usr/local/bin composer require squizlabs/php_codesniffer:^2.7
 
 # Add phpunit for unit testing
-RUN mkdir ~/phpunit && cd ~/phpunit && COMPOSER_BIN_DIR=/usr/local/bin composer require phpunit/phpunit:^6
+RUN mkdir ~/phpunit && cd ~/phpunit && COMPOSER_BIN_DIR=/usr/local/bin composer require phpunit/phpunit:^9
 
 # Add bats for functional testing
 RUN git clone https://github.com/sstephenson/bats.git; bats/install.sh /usr/local
