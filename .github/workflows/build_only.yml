@@ -1,8 +1,11 @@
-name: ci
+name: build_only
 
 on:
   push:
-    branches:
+    branches-ignore:
+      - '3.x'
+      - '2.x'
+      - '1.x'
 
 jobs:
   docker:
@@ -22,4 +25,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          tags: quay.io/pantheon-public/terminus-plugin-test:3.x
+          tags: pantheon-public/terminus-plugin-test:ci
