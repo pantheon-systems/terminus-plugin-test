@@ -29,5 +29,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          tags: pantheonoss/terminus-plugin-test:3.x
+          tags: pantheonpublic/terminus-plugin-test:3.x
           push: true
