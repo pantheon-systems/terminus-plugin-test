@@ -27,7 +27,7 @@ RUN groupadd -g 999 tester && \
 USER tester
 
 # Install terminus
-RUN wget https://github.com/pantheon-systems/terminus/releases/download/3.0.3/terminus.phar -O /usr/local/bin/terminus && \
+RUN curl https://github.com/pantheon-systems/terminus/releases/download/3.0.3/terminus.phar -o /usr/local/bin/terminus && \
     chmod +x /usr/local/bin/terminus
 RUN terminus self:update
 
