@@ -32,7 +32,7 @@ RUN curl -L https://github.com/pantheon-systems/terminus/releases/download/3.0.3
 RUN terminus self:update
 
 # Add phpcs for use in checking code style
-RUN mkdir ~/phpcs && cd ~/phpcs && COMPOSER_BIN_DIR=/usr/local/bin composer require squizlabs/php_codesniffer:^2.7
+RUN mkdir ~/phpcs && cd ~/phpcs && COMPOSER_BIN_DIR=/usr/local/bin composer require squizlabs/php_codesniffer
 
 # Add phpunit for unit testing
 RUN mkdir ~/phpunit && cd ~/phpunit && COMPOSER_BIN_DIR=/usr/local/bin composer require phpunit/phpunit:^9
