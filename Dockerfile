@@ -13,7 +13,7 @@ ADD . /terminus-plugin-test
 
 # Collect the components we need for this image
 RUN apt-get update
-RUN apt-get install -y ruby jq git
+RUN apt-get install -y ruby jq git rsync
 RUN gem install circle-cli
 
 # Pcov extension
