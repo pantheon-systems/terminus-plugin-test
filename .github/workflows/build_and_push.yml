@@ -3,11 +3,13 @@ name: build_and_push
 on:
   push:
     branches:
-      - '3.x'
+      - '4.x'
 
 jobs:
   docker:
     runs-on: ubuntu-latest
+    matrix:
+        php-versions: ['7.4', '8.0']
     steps:
       -
         name: Checkout
@@ -29,5 +31,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          tags: pantheonpublic/terminus-plugin-test:3.x
+          tags: pantheonpublic/terminus-plugin-test:4.x-php${{ matrix.php-versions }}
+          build-args: |
+            PHPVERSION=${{ matrix.php-versions }}
           push: true
