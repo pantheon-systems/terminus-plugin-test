@@ -43,15 +43,6 @@ jobs:
         with:
           context: .
           tags: pantheonpublic/terminus-plugin-test:${{ env.TAG_NAME }}
-          push: false
+          push: true
           build-args: |
             PHPVERSION=${{ matrix.php-versions }}
-      - name: Print image id
-        env:
-          IMAGE_ID: ${{ steps.build-push.outputs.imageid }}
-          DIGEST: ${{ steps.build-push.outputs.digest }}
-          METADATA: ${{ steps.build-push.outputs.metadata }}
-        run: |
-          echo Image id: $IMAGE_ID
-          echo DIGEST id: $DIGEST
-          echo METADATA id: $METADATA
