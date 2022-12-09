@@ -22,13 +22,13 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       -
         name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v2
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
       - name: Prepare tag name
         shell: bash
         env:
@@ -37,12 +37,14 @@ jobs:
           TAG=${{ matrix.tag-base }}
           if [[ "$TAG" == "ci-" ]]; then TAG=${TAG}${PHP_VERSION} ; fi
           echo "TAG_NAME=$TAG" >> $GITHUB_ENV
-      -
-        name: Build image (no push)
-        uses: docker/build-push-action@v2
+      - name: Build image (no push)
+        id: build_push
+        uses: docker/build-push-action@v3
         with:
           context: .
           tags: pantheonpublic/terminus-plugin-test:${{ env.TAG_NAME }}
           push: false
           build-args: |
             PHPVERSION=${{ matrix.php-versions }}
+      - name: Print image id
+        run: "echo Image id: ${{ steps.build_push.outputs.imageid }}"
