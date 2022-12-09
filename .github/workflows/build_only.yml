@@ -38,7 +38,7 @@ jobs:
           if [[ "$TAG" == "ci-" ]]; then TAG=${TAG}${PHP_VERSION} ; fi
           echo "TAG_NAME=$TAG" >> $GITHUB_ENV
       - name: Build image (no push)
-        id: build_push
+        id: build-push
         uses: docker/build-push-action@v3
         with:
           context: .
@@ -47,4 +47,7 @@ jobs:
           build-args: |
             PHPVERSION=${{ matrix.php-versions }}
       - name: Print image id
-        run: "echo Image id: ${{ steps.build_push.outputs.imageid }}"
+        run: |
+          echo Image id: ${{ steps.build-push.outputs.imageid }}
+          echo Image id: ${{ steps.build-push.outputs.digest }}
+          echo Image id: ${{ steps.build-push.outputs.metadata }}
