@@ -1,5 +1,7 @@
+ARG PHPVERSION
+
 # Use an official Drupal PHP runtime image as a parent image
-FROM php:8.0-cli
+FROM php:${PHPVERSION}-cli
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
@@ -25,10 +27,10 @@ RUN groupadd -g 999 tester && \
 USER tester
 
 # Install terminus
-RUN git clone https://github.com/pantheon-systems/terminus.git ~/terminus
-RUN cd ~/terminus && git checkout 3.x && composer install
-# Terminus 3 binary current is named t3.
-RUN ln -s ~/terminus/bin/t3 /usr/local/bin/terminus
+RUN curl -L https://github.com/pantheon-systems/terminus/releases/download/3.1.1/terminus.phar -o terminus.phar && \
+    chmod +x terminus.phar && \
+    ./terminus.phar self:update --yes && \
+    mv terminus.phar /usr/local/bin/terminus
 
 # Add phpcs for use in checking code style
 RUN mkdir ~/phpcs && cd ~/phpcs && COMPOSER_BIN_DIR=/usr/local/bin composer require squizlabs/php_codesniffer:^2.7
