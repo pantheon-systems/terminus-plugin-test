@@ -18,7 +18,7 @@ jobs:
           - php-versions: ''
             tag-base: 'ci'
       fail-fast: false
-    name: "Tagging ${{ tag-base }}${{ php-versions }}"
+    name: "Tagging ${{ matrix.tag-base }}${{ matrix.php-versions }}"
     steps:
       -
         name: Checkout
