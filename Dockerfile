@@ -1,4 +1,4 @@
-ARG PHPVERSION
+ARG PHPVERSION=8.0
 
 # Use an official Drupal PHP runtime image as a parent image
 FROM php:${PHPVERSION}-cli
