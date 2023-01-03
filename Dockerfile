@@ -28,7 +28,6 @@ USER tester
 # Install terminus
 RUN curl -L https://github.com/pantheon-systems/terminus/releases/latest/download/terminus.phar -o /usr/local/bin/terminus && \
     chmod +x /usr/local/bin/terminus
-RUN terminus self:update
 
 # Add phpcs for use in checking code style
 RUN mkdir ~/phpcs && cd ~/phpcs && COMPOSER_BIN_DIR=/usr/local/bin composer require squizlabs/php_codesniffer
