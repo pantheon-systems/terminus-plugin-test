@@ -25,11 +25,8 @@ RUN groupadd -g 999 tester && \
     chown -R tester /terminus-plugin-test
 USER tester
 
-# Temporary workaround to build on 8.2.
-ENV TERMINUS_ALLOW_UNSUPPORTED_NEWER_PHP=1
-
 # Install terminus
-RUN curl -L https://github.com/pantheon-systems/terminus/releases/download/3.1.1/terminus.phar -o /usr/local/bin/terminus && \
+RUN curl -L https://github.com/pantheon-systems/terminus/releases/download/3.1.2/terminus.phar -o /usr/local/bin/terminus && \
     chmod +x /usr/local/bin/terminus
 RUN terminus self:update
 
