@@ -23,3 +23,12 @@ This docker image contains the contents of [pantheon-public/php-ci](https://quay
 - [phpunit](https://github.com/phpunit/phpunit) php unit test tool
 
 If you are looking for a container prepopulated with Terminus plugins to use in functional testing, see the [build-tools-ci image](https://github.com/pantheon-systems/docker-build-tools-ci).
+
+## Rollback
+
+- **When:** a pushed image breaks consumers' pipelines (for example `terminus-composer-plugin`, which pulls `:4.x-php8.2`).
+- **Recover:** the tags are mutable and a rebuild is not reproducible, so put the previous digest back on the tag in Quay (and Docker Hub) rather than reverting and rebuilding. Record the digests before you push. Consumers can pin `@sha256:<old>` meanwhile.
+- **Verify:** Quay's tag listing shows the old digest on the tag, and a consumer pipeline is green.
+- **Who to page:** `#ask-hosting` (owner: developer-experience). Nobody is paged automatically.
+
+Full procedure: [DEPLOYMENT.md](DEPLOYMENT.md#rollback).
